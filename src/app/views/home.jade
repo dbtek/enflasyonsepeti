@@ -1,0 +1,35 @@
+section(layout-padding layout-sm='column' layout-gt-md='row' layout-align='spacebetween')
+  span(flex)
+  form(flex flex-gt-md='33' action='#')
+    md-input-container.md-icon-float
+      label Search
+      md-icon search
+      input(ng-model='filters.name')
+
+md-content.md-padding
+  md-tabs(md-dynamic-height md-border-bottom)
+    md-tab(label='Tümü')
+      md-content.md-padding(layout='column')
+        div(flex='33' flex-md='50' flex-lg='33' flex-gt-lg='25')
+          md-list(ng-repeat-start='cat in categories')
+            md-subheader {{cat.name}}
+            md-virtual-repeat-container.vertical-container
+              md-list-item.repeated(md-virtual-repeat='item in cat.items | filter: filters')
+                h3 {{ item.name }}
+          span(ng-repeat-end)
+    md-tab(ng-repeat='cat in categories' label='{{cat.name}} ({{(cat.items | filter: filters).length}})')
+      md-content.md-padding
+        md-list(layout='column')
+          md-list-item.md-3-line(flex ng-repeat='item in cat.items | filter: filters')
+            .md-list-item-text
+              h3 {{ item.name }}
+
+.categories(layout='row' layout-wrap)
+  div(ng-repeat='cat in categories2' flex-md='50' flex-sm='100' flex-lg='33' flex-gt-lg='25')
+    md-card.category
+      md-card-content
+        h3.md-subheader {{cat.name}}
+        md-list(layout='column')
+          md-list-item.md-3-line(flex ng-repeat='item in cat.items | filter: filters')
+            .md-list-item-text
+              h3 {{ item.name }}
