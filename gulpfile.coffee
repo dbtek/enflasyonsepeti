@@ -1,4 +1,5 @@
 # Source: https://github.com/leonidas/gulp-project-template
+pkg          = require './package.json'
 browserify   = require 'browserify'
 browserSync  = require 'browser-sync'
 chalk        = require 'chalk'
@@ -19,6 +20,8 @@ stylus       = require 'gulp-stylus'
 uglify       = require 'gulp-uglify'
 watchify     = require 'watchify'
 ngAnnotate   = require 'gulp-ng-annotate'
+ghPages      = require 'gulp-gh-pages'
+
 
 production   = process.env.NODE_ENV is 'production'
 
@@ -55,7 +58,7 @@ gulp.task 'scripts', ->
 
   build = bundle.bundle()
     .on 'error', handleError
-    .pipe source config.scripts.filename
+    .pipe (source config.scripts.filename)
 
   if production
     build.pipe(streamify(ngAnnotate()))
@@ -133,6 +136,15 @@ gulp.task 'watch', ->
     gutil.log "Finished '#{chalk.cyan 'rebundle'}' after #{chalk.magenta prettyTime process.hrtime start}"
 
   .emit 'update'
+
+gulp.task 'deployPrep', ->
+  production = true
+
+gulp.task 'deploy', ['deployPrep', 'build'], ->
+  options =
+    remoteUrl: pkg.repository.url
+  gulp.src './public/**/*'
+    .pipe (ghPages options)
 
 gulp.task 'no-js', ['templates', 'styles', 'assets']
 gulp.task 'build', ['scripts', 'no-js']
