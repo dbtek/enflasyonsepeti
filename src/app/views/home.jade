@@ -3,7 +3,7 @@ md-content#main-content.container
     md-tab(label='KATEGORİLER')
       md-content(layout-padding)
         md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-gt-md='6' md-row-height-gt-md='1:1' md-row-height='4:3' md-gutter='8px' md-gutter-gt-sm='4px')
-          md-grid-tile.category(ng-repeat='cat in categories' md-rowspan='1' md-colspan='1' md-colspan-sm='1' ng-click='showItems($index, $event)')
+          md-grid-tile.category(class='{{colors[$index%8]}}' ng-repeat='cat in categories' md-rowspan='1' md-colspan='1' md-colspan-sm='1' ng-click='showItems($index, $event)')
             md-icon shopping_cart
             md-grid-tile-footer
               h3 {{cat.name}}

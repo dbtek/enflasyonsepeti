@@ -4,8 +4,9 @@ angular.module 'enflasyonSepeti.ctrl.home', [
     require '../data'
   ]
 
-  .controller 'ItemsCtrl', ($scope, $mdDialog, category) ->
+  .controller 'ItemsCtrl', ($scope, $mdDialog, category, color) ->
     $scope.category = category
+    $scope.color = color
     $scope.close = ->
       $mdDialog.cancel()
 
@@ -26,8 +27,11 @@ angular.module 'enflasyonSepeti.ctrl.home', [
         templateUrl: 'app/views/items.html'
         resolve:
           category: -> data[index]
+          color: -> $scope.colors[index%8]
         parent: (angular.element document.body)
         targetEvent: ev
         clickOutsideToClose: true
+
+    $scope.colors = ['teal', 'blue', 'pink', 'orange', 'purple', 'lime', 'light-blue']
 
 module.exports = 'enflasyonSepeti.ctrl.home'

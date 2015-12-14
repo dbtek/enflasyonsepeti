@@ -1,5 +1,5 @@
-md-dialog.items(aria-label='Mango (Fruit)' flex='80')
-  md-toolbar
+md-dialog.items(aria-label='{{category.name}}' flex='80')
+  md-toolbar(class='{{color}}')
     .md-toolbar-tools
       h2 {{category.name}}
       span(flex='')

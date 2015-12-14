@@ -2,6 +2,32 @@
 @import "./material-icons.styl"
 
 contentBg = #F6F6F6
+pink = #E91E63
+blue = #2196F3
+light-blue = #03A9F4
+purple = #9C27B0
+lime = #CDDC39
+teal = #009688
+cyan = #00BCD4
+orange = #FF9800
+
+colorBg()
+  &.pink
+    background-color pink
+  &.blue
+    background-color blue
+  &.light-blue
+    background-color light-blue
+  &.purple
+    background-color purple
+  &.lime
+    background-color lime
+  &.teal
+    background-color teal
+  &.cyan
+    background-color cyan
+  &.orange
+    background-color orange
 
 html
   background-color contentBg
@@ -30,11 +56,14 @@ html
   max-width 1200px
   margin 0 auto
 
-.category
-  background #00BCD4
+md-grid-list
+  .category
+    colorBg()
 
 md-dialog.items
   min-height 400px
+  md-toolbar
+    colorBg()
 
 .vertical-container
   height 292px
