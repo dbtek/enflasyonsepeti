@@ -4,13 +4,23 @@ html
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     link(rel='stylesheet', href='css/main.css')
 
-  body(ng-keydown='fwEvent($event)', layout='column')
+  body(ng-keydown='fwEvent($event)', layout='column' ng-cloak)
 
-    md-toolbar(layout='row' layout-padding)
-      md-icon shopping_basket
-      h1.md-toolbar-tools Enflasyon Sepeti
+    #header
+      .md-toolbar
+        .md-toolbar-tools
+          md-icon shopping_basket
+          h1
+            span Enflasyon Sepeti
+          span(flex)
+        div(layout='column' layout-align='center center')
+          form.search(flex action='#' ng-controller='SearchCtrl')
+            md-input-container.md-icon-float.md-accent
+              label Ara
+              md-icon search
+              input(ng-model='term')
 
     #content
-    ng-view
+      ng-view
 
     script(src='js/bundle.js')

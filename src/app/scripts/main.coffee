@@ -19,8 +19,10 @@ angular.module 'enflasyonSepeti', [
 # angular material config
 .config ($mdThemingProvider) ->
   $mdThemingProvider.theme 'default'
-    .primaryPalette 'indigo'
+    .primaryPalette 'cyan'
     .accentPalette 'pink'
+  $mdThemingProvider.theme 'altTheme'
+    .primaryPalette('purple')
   return
 
 # bootstrap angular app

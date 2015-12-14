@@ -1,35 +1,20 @@
-section(layout-padding layout-sm='column' layout-gt-md='row' layout-align='spacebetween')
-  span(flex)
-  form(flex flex-gt-md='33' action='#')
-    md-input-container.md-icon-float
-      label Search
-      md-icon search
-      input(ng-model='filters.name')
-
-md-content.md-padding
-  md-tabs(md-dynamic-height md-border-bottom)
-    md-tab(label='Tümü')
-      md-content.md-padding(layout='column')
-        div(flex='33' flex-md='50' flex-lg='33' flex-gt-lg='25')
-          md-list(ng-repeat-start='cat in categories')
-            md-subheader {{cat.name}}
-            md-virtual-repeat-container.vertical-container
-              md-list-item.repeated(md-virtual-repeat='item in cat.items | filter: filters')
-                h3 {{ item.name }}
-          span(ng-repeat-end)
-    md-tab(ng-repeat='cat in categories' label='{{cat.name}} ({{(cat.items | filter: filters).length}})')
-      md-content.md-padding
-        md-list(layout='column')
-          md-list-item.md-3-line(flex ng-repeat='item in cat.items | filter: filters')
-            .md-list-item-text
-              h3 {{ item.name }}
-
-.categories(layout='row' layout-wrap)
-  div(ng-repeat='cat in categories2' flex-md='50' flex-sm='100' flex-lg='33' flex-gt-lg='25')
-    md-card.category
-      md-card-content
-        h3.md-subheader {{cat.name}}
-        md-list(layout='column')
-          md-list-item.md-3-line(flex ng-repeat='item in cat.items | filter: filters')
-            .md-list-item-text
-              h3 {{ item.name }}
+md-content#main-content.container
+  md-tabs(md-selected='selectedTab' style='min-height: 1000px;')
+    md-tab(label='KATEGORİLER')
+      md-content(layout-padding)
+        md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-gt-md='6' md-row-height-gt-md='1:1' md-row-height='4:3' md-gutter='8px' md-gutter-gt-sm='4px')
+          md-grid-tile.category(ng-repeat='cat in categories' md-rowspan='1' md-colspan='1' md-colspan-sm='1' ng-click='showItems($index, $event)')
+            md-icon shopping_cart
+            md-grid-tile-footer
+              h3 {{cat.name}}
+    md-tab(label='TÜM SEPET')
+      md-content(layout='row' layout-wrap)
+        md-card(flex='30' ng-repeat='category in categories' layout-padding)
+          md-card-title
+            md-card-title-text {{category.name}}
+          md-list
+            md-list-item.md-2-line(ng-repeat='item in (category.showAll ? category.items : category.items.slice(0,8)) | filter: filters')
+              .md-list-item-text {{item.name}}
+            div(ng-if='category.items.length>8')
+              md-divider
+              md-button.md-accent(ng-click='showItems($index, $event)') Daha Fazla
