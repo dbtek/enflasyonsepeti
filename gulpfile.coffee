@@ -18,6 +18,7 @@ streamify    = require 'gulp-streamify'
 stylus       = require 'gulp-stylus'
 uglify       = require 'gulp-uglify'
 watchify     = require 'watchify'
+ngAnnotate   = require 'gulp-ng-annotate'
 
 production   = process.env.NODE_ENV is 'production'
 
@@ -56,7 +57,9 @@ gulp.task 'scripts', ->
     .on 'error', handleError
     .pipe source config.scripts.filename
 
-  build.pipe(streamify(uglify())) if production
+  if production
+    build.pipe(streamify(ngAnnotate()))
+      .pipe(streamify(uglify()))
 
   build
     .pipe gulp.dest config.scripts.destination
