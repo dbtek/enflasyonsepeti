@@ -2,9 +2,10 @@ doctype html
 html
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='css/main.css')
 
-  body(ng-keydown='fwEvent($event)', layout='column' ng-cloak)
+  body(layout-wrap ng-cloak)
 
     #header
       .md-toolbar
@@ -13,7 +14,8 @@ html
           h1
             span Enflasyon Sepeti
           span(flex)
-          p Enflasyonu belirleyen ürünler.
+          .motto
+            p Enflasyonu belirleyen ürünler.
         div(layout='column' layout-align='center center')
           form.search(flex action='#' ng-controller='SearchCtrl')
             md-input-container.md-icon-float.md-accent
